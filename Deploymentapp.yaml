@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment.app
+  labels:
+    app: appl
+spec:
+  selector:
+    matchLabels:
+      app: appl
+      tier: app
+  replicas: 7
+  template:
+    metadata:
+      labels:
+        app: appl
+        tier: app
+    spec:
+      containers:
+      - name: appl
+        image: yebra/crud
+        ports: 
+        - containerPort: 80 
+      restartPolicy: Always
+  

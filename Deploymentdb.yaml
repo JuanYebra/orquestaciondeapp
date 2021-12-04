@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-database
+  labels:
+    app: database
+spec:
+  selector: 
+    matchLabels:
+      app: database
+      tier: data
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: database
+        tier: data
+    spec:
+      containers:
+      - name: mydatabase
+        image: yebra/db
+        ports: 
+        - containerPort: 3306 
+        volumeMounts:
+        - name: persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+        - name: persistent-storage
+          persistentVolumeClaim:
+            claimName: crud-pv-claim
